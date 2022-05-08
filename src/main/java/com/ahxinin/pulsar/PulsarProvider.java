@@ -39,7 +39,7 @@ public class PulsarProvider {
     public void setServiceUrl(String serviceUrl) {
         this.serviceUrl = serviceUrl;
     }
-    
+
     public void setToken(String token) {
         this.token = token;
     }
