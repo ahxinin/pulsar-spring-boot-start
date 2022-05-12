@@ -5,6 +5,7 @@ import com.ahxinin.pulsar.annotation.PulsarProducer;
 import com.ahxinin.pulsar.collector.PulsarProducerCollector;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClientException;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,10 @@ public class PulsarProducerCreate {
 
     @PostConstruct
     public void create(){
-        collector.getMap().values().forEach(pulsarProducer->{
+        collector.getProducers().values().forEach(properties->{
             try {
-                pulsarProvider.createProducer(pulsarProducer);
+                Producer producer = pulsarProvider.createProducer(properties.getPulsarProducer());
+                properties.getProducerMessage().setProducer(producer);
             } catch (PulsarClientException e) {
                 e.printStackTrace();
             }

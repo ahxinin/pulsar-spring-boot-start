@@ -3,6 +3,7 @@ package com.ahxinin.pulsar;
 import com.ahxinin.pulsar.annotation.PulsarProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pulsar.client.api.AuthenticationFactory;
+import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
 
@@ -37,8 +38,9 @@ public class PulsarProvider {
         }
     }
 
-    public void createProducer(PulsarProducer pulsarProducer) throws PulsarClientException {
-        pulsarClient.newProducer()
+    public Producer createProducer(PulsarProducer pulsarProducer) throws PulsarClientException {
+        log.info("createProducer topic:{}", pulsarProducer.topic());
+        return pulsarClient.newProducer()
                 .topic(pulsarProducer.topic())
                 .create();
     }
