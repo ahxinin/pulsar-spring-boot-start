@@ -23,7 +23,7 @@ public class PulsarProducerCollector implements BeanPostProcessor {
         Class<?> beanClass = bean.getClass();
         PulsarProducer pulsarProducer = beanClass.getAnnotation(PulsarProducer.class);
 
-        if (pulsarProducer!=null && bean instanceof  ProducerMessage){
+        if (pulsarProducer!=null && bean instanceof ProducerMessage){
             ProducerMessage producerMessage = (ProducerMessage) bean;
 
             PulsarProducerProperties properties = PulsarProducerProperties.builder()

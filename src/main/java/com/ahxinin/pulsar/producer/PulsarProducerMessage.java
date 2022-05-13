@@ -1,16 +1,18 @@
 package com.ahxinin.pulsar.producer;
 
 import java.nio.charset.StandardCharsets;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClientException;
 import org.apache.pulsar.shade.com.google.gson.Gson;
-import org.apache.pulsar.shade.com.google.gson.JsonObject;
 
 /**
  * @author : hexin
  * @description: 生产者抽象
  * @date : 2022-05-12
  */
+@Slf4j
 public class PulsarProducerMessage<T> implements ProducerMessage{
 
     private Producer producer;
@@ -23,6 +25,7 @@ public class PulsarProducerMessage<T> implements ProducerMessage{
     public void send(T message) throws PulsarClientException {
         Gson gson = new Gson();
         String content = gson.toJson(message);
-        producer.send(content.getBytes(StandardCharsets.UTF_8));
+        MessageId messageId = producer.send(content.getBytes(StandardCharsets.UTF_8));
+        log.info("send success, messageId:{}", messageId);
     }
 }
