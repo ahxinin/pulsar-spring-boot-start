@@ -3,9 +3,9 @@ package com.ahxinin.pulsar.consumer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
 import org.apache.pulsar.shade.com.google.gson.Gson;
-import org.apache.pulsar.shade.io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 
 /**
  * @author : hexin

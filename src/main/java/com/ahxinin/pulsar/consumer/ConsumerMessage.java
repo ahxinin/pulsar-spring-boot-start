@@ -1,7 +1,7 @@
 package com.ahxinin.pulsar.consumer;
 
+import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
-import org.apache.pulsar.shade.io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 
 /**
  * @author : hexin

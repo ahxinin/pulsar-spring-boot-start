@@ -4,6 +4,7 @@ import com.ahxinin.pulsar.PulsarProvider;
 import com.ahxinin.pulsar.collector.PulsarConsumerCollector;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import org.apache.pulsar.client.api.Consumer;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,8 @@ public class PulsarConsumerCreate {
     public void create(){
         collector.getConsumers().values().forEach(properties->{
             try {
-                provider.createConsumer(properties.getPulsarConsumer());
+                Consumer consumer = provider.createConsumer(properties.getPulsarConsumer());
+                properties.getConsumerMessage().setConsumer(consumer);
             }catch (Exception e){
                 e.printStackTrace();
             }

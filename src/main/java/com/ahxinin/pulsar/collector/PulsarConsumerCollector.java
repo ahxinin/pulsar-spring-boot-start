@@ -24,9 +24,6 @@ public class PulsarConsumerCollector implements BeanPostProcessor {
             throws BeansException {
         Class<?> beanClass = bean.getClass();
         PulsarConsumer pulsarConsumer = beanClass.getAnnotation(PulsarConsumer.class);
-        if (pulsarConsumer != null){
-            log.info(pulsarConsumer.topic());
-        }
 
         if (pulsarConsumer!=null && bean instanceof ConsumerMessage){
             PulsarConsumerProperties properties = PulsarConsumerProperties.builder()
