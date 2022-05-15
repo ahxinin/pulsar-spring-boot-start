@@ -2,9 +2,11 @@ package com.ahxinin.pulsar;
 
 import com.ahxinin.pulsar.annotation.PulsarConsumer;
 import com.ahxinin.pulsar.annotation.PulsarProducer;
+import com.ahxinin.pulsar.collector.PulsarConsumerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pulsar.client.api.AuthenticationFactory;
 import org.apache.pulsar.client.api.Consumer;
+import org.apache.pulsar.client.api.MessageListener;
 import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.api.PulsarClientException;
@@ -47,11 +49,15 @@ public class PulsarProvider {
                 .create();
     }
 
-    public Consumer createConsumer(PulsarConsumer pulsarConsumer) throws PulsarClientException {
+    public Consumer createConsumer(PulsarConsumerProperties properties) throws PulsarClientException {
+        PulsarConsumer pulsarConsumer = properties.getPulsarConsumer();
+        MessageListener<byte[]> listener = (Consumer,Message) -> properties.getConsumerMessage().receiver(Consumer, Message);
+
         log.info("createConsumer topic:{}", pulsarConsumer.topic());
         return pulsarClient.newConsumer()
                 .topic(pulsarConsumer.topic())
                 .subscriptionName(pulsarConsumer.subscription())
+                .messageListener(listener)
                 .subscribe();
     }
 

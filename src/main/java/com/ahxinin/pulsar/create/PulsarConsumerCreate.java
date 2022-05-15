@@ -27,7 +27,7 @@ public class PulsarConsumerCreate {
     public void create(){
         collector.getConsumers().values().forEach(properties->{
             try {
-                Consumer consumer = provider.createConsumer(properties.getPulsarConsumer());
+                Consumer consumer = provider.createConsumer(properties);
                 properties.getConsumerMessage().setConsumer(consumer);
             }catch (Exception e){
                 e.printStackTrace();
